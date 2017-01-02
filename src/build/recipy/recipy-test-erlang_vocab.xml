@@ -1,0 +1,9 @@
+<folder name="target"
+  xmlns="http://recipy.hoverview.org/default"
+  xmlns:e="http://recipy.hoverview.org/erlang">
+  <e:escript-archive
+    filename="test-erlang-vocab"
+    main="erlang_vocab_test_module">
+    <e:beamfiles src="src/test/erlang_vocab/*"/>
+  </e:escript-archive>
+</folder>
