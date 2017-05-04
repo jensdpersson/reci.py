@@ -1,0 +1,3 @@
+<folder name="test-download" xmlns="http://recipy.hoverview.org/default">
+  <download uri="http://github.com/jensdpersson/prosith/releases/download/v0.1.0/prosith-dropdown.xsl"/>
+</folder>

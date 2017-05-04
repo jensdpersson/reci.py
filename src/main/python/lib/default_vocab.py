@@ -135,6 +135,29 @@ class IndexXml(Directive):
                 f.write('<dir name="%s"/>\n' % (file))
         f.write('</dir>')
 
+import urllib
+from urlparse import urlparse
+class Download(Directive):
+    def __init__(self):
+        Directive.__init__(self)
+        self.uri = None
+
+    def set_uri(self, uri):
+        self.uri = uri
+
+    def realize(self, dir):
+        #TODO urllib.request.urlopen in py3
+        #rsp = urllib2.urlopen(self.uri)
+        name = None
+        url = urlparse(self.uri)
+        if url.path:
+            name = url.path.split("/")[-1]
+        else:
+            raise "No name to give to downloaded file at " + self.uri
+        #f = open(os.path.join(dir, name), "w")
+        ok = urllib.urlretrieve(self.uri, os.path.join(dir, name))
+        
+
 
 class Vocab(Vocabulary):
     def __init__(self):
@@ -145,5 +168,6 @@ class Vocab(Vocabulary):
             'copies': Copies,
             'artifact': Artifact,
             'tarball': Tarball,
-            'index-xml': IndexXml
+            'index-xml': IndexXml,
+            'download': Download
         }
