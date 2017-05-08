@@ -1,0 +1,5 @@
+<folder name="test-download" xmlns="http://recipy.hoverview.org/default">
+  <unzipped>
+    <copies of="src/test/default_vocab/test.zip"/>
+  </unzipped>
+</folder>

@@ -106,7 +106,6 @@ class Tarball(Directive):
     #def _filter(self, tarinfo):
 import re
 class IndexXml(Directive):
-
     def __init__(self):
         Directive.__init__(self)
         self.xslpi = None
@@ -156,12 +155,24 @@ class Download(Directive):
             raise "No name to give to downloaded file at " + self.uri
         #f = open(os.path.join(dir, name), "w")
         ok = urllib.urlretrieve(self.uri, os.path.join(dir, name))
-        
 
+import zipfile
+class Unzipped(Directive):
+    def __init__(self):
+        Directive.__init__(self)
+
+    def realize(self, dir):
+        tmp = tempfile.mkdtemp()
+        self.subrealize(tmp)
+        for f in os.listdir(tmp):
+            path = os.path.join(tmp, f)
+            zipf = zipfile.ZipFile(path, 'r')
+            zipf.extractall(dir)
+            zipf.close()
 
 class Vocab(Vocabulary):
     def __init__(self):
-	self.ns = 'http://recipy.hoverview.org/default'
+        self.ns = 'http://recipy.hoverview.org/default'
         self.elms = {
             'recipe': Recipe,
             'folder': Folder,
@@ -169,5 +180,6 @@ class Vocab(Vocabulary):
             'artifact': Artifact,
             'tarball': Tarball,
             'index-xml': IndexXml,
-            'download': Download
+            'download': Download,
+            'unzipped': Unzipped
         }
