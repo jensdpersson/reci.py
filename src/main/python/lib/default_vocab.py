@@ -170,6 +170,24 @@ class Unzipped(Directive):
             zipf.extractall(dir)
             zipf.close()
 
+class Zipfile(Directive):
+    def __init__(self):
+        Directive.__init__(self)
+        self.name = None
+
+    def set_name(self, name):
+        self.name = name
+
+    def realize(self, dir):
+        zipfilepath = os.path.join(dir, self.name)
+        zipf = zipfile.ZipFile(zipfilepath, 'w')
+        tmp = tempfile.mkdtemp()
+        self.subrealize(tmp)
+        for f in os.listdir(tmp):
+            path = os.path.join(tmp, f)
+            zipf.write(path, f)
+        zipf.close()
+
 class Vocab(Vocabulary):
     def __init__(self):
         self.ns = 'http://recipy.hoverview.org/default'
@@ -181,5 +199,6 @@ class Vocab(Vocabulary):
             'tarball': Tarball,
             'index-xml': IndexXml,
             'download': Download,
-            'unzipped': Unzipped
+            'unzipped': Unzipped,
+            'zipfile': Zipfile
         }
