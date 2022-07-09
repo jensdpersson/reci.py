@@ -1,4 +1,4 @@
-<folder name="test-download" xmlns="http://recipy.hoverview.org/default">
+<folder name="test-zipfile" xmlns="http://recipy.hoverview.org/default">
   <zipfile name="jeanyves.zip">
     <copies of="src/test/default_vocab/test.txt"/>
   </zipfile>
